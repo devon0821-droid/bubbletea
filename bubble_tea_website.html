@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五十嵐 50嵐 Cindy手搖飲料</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf6ef;
+    --brown: #3d1f0d;
+    --gold: #c8922a;
+    --cream: #f0e4cc;
+    --orange: #e07b39;
+    --light: #fff8f0;
+    --text: #2a1505;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif TC', serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--brown);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 60px;
+  }
+  .logo {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--gold); letter-spacing: 0.2em;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--cream); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.15em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    margin-top: 60px;
+    background: var(--brown);
+    min-height: 480px;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 60px 40px;
+  }
+  .hero-bg-circle {
+    position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c8922a44, #e07b3922);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.06); }
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 520px; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--gold); color: #fff;
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    padding: 4px 14px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900; line-height: 1.15;
+    color: var(--cream); margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    color: #c4a87a; font-size: 0.95rem; line-height: 1.8;
+    margin-bottom: 32px;
+  }
+  .btn-primary {
+    background: var(--gold); color: #fff;
+    border: none; padding: 14px 36px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem; letter-spacing: 0.15em;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange); transform: translateY(-2px); }
+
+  .hero-cups {
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    display: flex; gap: 24px; z-index: 2;
+  }
+  .cup {
+    display: flex; flex-direction: column; align-items: center;
+    animation: float 3s ease-in-out infinite;
+  }
+  .cup:nth-child(2) { animation-delay: 0.6s; margin-top: 30px; }
+  .cup:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .cup-svg { width: 70px; }
+  .cup-label {
+    color: var(--gold); font-size: 0.68rem;
+    letter-spacing: 0.1em; margin-top: 8px; text-align: center;
+  }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: var(--gold); overflow: hidden;
+    white-space: nowrap; padding: 10px 0;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 18s linear infinite;
+    font-size: 0.78rem; letter-spacing: 0.2em; color: #fff;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION */
+  section { padding: 80px 40px; }
+  .section-header {
+    text-align: center; margin-bottom: 56px;
+  }
+  .section-header .kana {
+    color: var(--gold); font-size: 0.75rem; letter-spacing: 0.3em;
+    display: block; margin-bottom: 10px;
+  }
+  .section-header h2 {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 2rem; font-weight: 900; letter-spacing: 0.1em;
+    color: var(--brown);
+  }
+  .section-header .divider {
+    width: 40px; height: 2px; background: var(--gold);
+    margin: 16px auto 0;
+  }
+
+  /* MENU GRID */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px; max-width: 960px; margin: 0 auto;
+  }
+  .menu-card {
+    background: var(--light);
+    border: 1px solid #e8d8c0;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .menu-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .menu-card:hover::before { transform: scaleX(1); }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px #3d1f0d18; }
+  .menu-icon { font-size: 2.8rem; margin-bottom: 14px; display: block; }
+  .menu-card h3 {
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--brown); margin-bottom: 6px;
+  }
+  .menu-card .desc { font-size: 0.78rem; color: #8a6a4a; line-height: 1.6; margin-bottom: 14px; }
+  .price {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.1rem; color: var(--gold); font-weight: 700;
+  }
+  .badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--orange); color: #fff;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    padding: 3px 8px;
+  }
+
+  /* CATEGORIES */
+  .categories {
+    background: var(--cream);
+  }
+  .cat-tabs {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 40px; flex-wrap: wrap;
+  }
+  .cat-tab {
+    padding: 8px 24px; border: 1.5px solid var(--brown);
+    background: transparent; color: var(--brown);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem; letter-spacing: 0.12em;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cat-tab.active, .cat-tab:hover {
+    background: var(--brown); color: var(--cream);
+  }
+
+  /* FEATURE STRIP */
+  .features {
+    background: var(--brown);
+    display: flex; justify-content: center;
+    gap: 0; flex-wrap: wrap;
+  }
+  .feature-item {
+    text-align: center; padding: 48px 40px;
+    flex: 1; min-width: 180px;
+    border-right: 1px solid #5a3520;
+  }
+  .feature-item:last-child { border-right: none; }
+  .feature-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+  .feature-item h4 {
+    color: var(--gold); font-size: 0.9rem;
+    letter-spacing: 0.15em; margin-bottom: 8px;
+  }
+  .feature-item p { color: #c4a87a; font-size: 0.78rem; line-height: 1.7; }
+
+  /* ORDER SECTION */
+  .order-section {
+    background: var(--light);
+    display: flex; align-items: center; gap: 60px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .order-info { max-width: 420px; }
+  .order-info .kana { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.3em; }
+  .order-info h2 {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.9rem; font-weight: 900; margin: 10px 0 16px;
+    color: var(--brown); letter-spacing: 0.08em;
+  }
+  .order-info p { color: #6a4a2a; line-height: 1.9; font-size: 0.88rem; margin-bottom: 28px; }
+  .order-steps { list-style: none; margin-bottom: 32px; }
+  .order-steps li {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 16px; font-size: 0.85rem; line-height: 1.6;
+  }
+  .step-num {
+    width: 26px; height: 26px; background: var(--gold);
+    color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+  }
+
+  .customize-box {
+    background: var(--brown); padding: 36px; min-width: 300px;
+  }
+  .customize-box h3 {
+    color: var(--gold); font-size: 0.85rem;
+    letter-spacing: 0.2em; margin-bottom: 24px;
+    font-family: 'Zen Old Mincho', serif;
+  }
+  .opt-group { margin-bottom: 20px; }
+  .opt-group label {
+    color: var(--cream); font-size: 0.75rem;
+    letter-spacing: 0.15em; display: block; margin-bottom: 10px;
+  }
+  .opt-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opt-btn {
+    padding: 6px 14px; border: 1px solid #c8922a55;
+    background: transparent; color: #c4a87a;
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .opt-btn.active, .opt-btn:hover {
+    background: var(--gold); color: #fff; border-color: var(--gold);
+  }
+  .add-to-cart {
+    width: 100%; margin-top: 24px;
+    background: var(--gold); color: #fff; border: none;
+    padding: 13px; font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .add-to-cart:hover { background: var(--orange); }
+
+  /* FOOTER */
+  footer {
+    background: #2a1505; color: #8a6a4a;
+    text-align: center; padding: 40px;
+    font-size: 0.78rem; letter-spacing: 0.1em; line-height: 2;
+  }
+  footer .logo-ft {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.3rem; color: var(--gold);
+    display: block; margin-bottom: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .hero-cups { display: none; }
+    nav .nav-links { display: none; }
+    .hero h1 { font-size: 2rem; }
+    .feature-item { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">五十嵐</div>
+  <ul class="nav-links">
+    <li><a href="#">菜單</a></li>
+    <li><a href="#">推薦</a></li>
+    <li><a href="#">門市</a></li>
+    <li><a href="#">關於我們</a></li>
+    <li><a href="#">線上訂購</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <span class="hero-tag">2025 夏季新品上市</span>
+    <h1>每一杯<br>都是<span>Cindy</span>心意</h1>
+    <p>嚴選茶葉・天然食材・手工製作<br>從茶園到您手中，每個環節我們都堅持</p>
+    <a href="#menu" class="btn-primary">立即點餐 →</a>
+  </div>
+  <div class="hero-cups">
+    <div class="cup">
+      <svg class="cup-svg" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="20" width="54" height="75" rx="8" fill="#f0e4cc" stroke="#c8922a" stroke-width="2"/>
+        <rect x="8" y="20" width="54" height="22" rx="4" fill="#e8d5b0"/>
+        <circle cx="35" cy="31" r="10" fill="#c8922a" opacity="0.3"/>
+        <rect x="18" y="55" width="34" height="8" rx="2" fill="#c8922a" opacity="0.25"/>
+        <rect x="18" y="67" width="25" height="6" rx="2" fill="#c8922a" opacity="0.18"/>
+        <rect x="31" y="5" width="8" height="18" rx="4" fill="#3d1f0d"/>
+        <circle cx="35" cy="4" r="3" fill="#c8922a"/>
+      </svg>
+      <span class="cup-label">珍珠奶茶</span>
+    </div>
+    <div class="cup">
+      <svg class="cup-svg" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="20" width="54" height="75" rx="8" fill="#fce8d5" stroke="#e07b39" stroke-width="2"/>
+        <rect x="8" y="20" width="54" height="22" rx="4" fill="#f5d5b5"/>
+        <ellipse cx="35" cy="55" rx="20" ry="14" fill="#e07b39" opacity="0.2"/>
+        <rect x="18" y="65" width="28" height="7" rx="2" fill="#e07b39" opacity="0.25"/>
+        <rect x="31" y="5" width="8" height="18" rx="4" fill="#3d1f0d"/>
+        <circle cx="35" cy="4" r="3" fill="#e07b39"/>
+      </svg>
+      <span class="cup-label">仙草凍奶茶</span>
+    </div>
+    <div class="cup">
+      <svg class="cup-svg" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="20" width="54" height="75" rx="8" fill="#e8f5e9" stroke="#6aaa6a" stroke-width="2"/>
+        <rect x="8" y="20" width="54" height="22" rx="4" fill="#d5edd5"/>
+        <ellipse cx="35" cy="60" rx="18" ry="10" fill="#4a8f4a" opacity="0.18"/>
+        <rect x="18" y="58" width="30" height="6" rx="2" fill="#6aaa6a" opacity="0.3"/>
+        <rect x="31" y="5" width="8" height="18" rx="4" fill="#2a5a2a"/>
+        <circle cx="35" cy="4" r="3" fill="#6aaa6a"/>
+      </svg>
+      <span class="cup-label">抹茶拿鐵</span>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    ✦ 珍珠奶茶 ✦ 四季春茶 ✦ 冬瓜茶 ✦ 烏龍拿鐵 ✦ 仙草凍奶茶 ✦ 抹茶拿鐵 ✦ 多多綠茶 ✦ 燕麥奶茶 ✦ 黑糖奶茶 ✦ 百香果綠茶 &nbsp;&nbsp;&nbsp;✦ 珍珠奶茶 ✦ 四季春茶 ✦ 冬瓜茶 ✦ 烏龍拿鐵 ✦ 仙草凍奶茶 ✦ 抹茶拿鐵 ✦ 多多綠茶 ✦ 燕麥奶茶 ✦ 黑糖奶茶 ✦ 百香果綠茶 &nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<section id="menu" class="categories">
+  <div class="section-header">
+    <span class="kana">OUR MENU</span>
+    <h2>人氣飲品</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="setTab(this)">全部</button>
+    <button class="cat-tab" onclick="setTab(this)">奶茶系列</button>
+    <button class="cat-tab" onclick="setTab(this)">茶類</button>
+    <button class="cat-tab" onclick="setTab(this)">季節限定</button>
+    <button class="cat-tab" onclick="setTab(this)">特調飲品</button>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="badge">人氣No.1</div>
+      <span class="menu-icon">🧋</span>
+      <h3>珍珠奶茶</h3>
+      <p class="desc">Q彈手作珍珠・濃郁奶香・嚴選阿薩姆紅茶</p>
+      <div class="price">NT$60</div>
+    </div>
+    <div class="menu-card">
+      <span class="menu-icon">🍵</span>
+      <h3>烏龍拿鐵</h3>
+      <p class="desc">台灣高山烏龍・搭配鮮奶・清香回甘</p>
+      <div class="price">NT$65</div>
+    </div>
+    <div class="menu-card">
+      <div class="badge">NEW</div>
+      <span class="menu-icon">🌿</span>
+      <h3>抹茶拿鐵</h3>
+      <p class="desc">宇治抹茶粉・鮮奶・燕麥奶可選</p>
+      <div class="price">NT$75</div>
+    </div>
+    <div class="menu-card">
+      <span class="menu-icon">🍊</span>
+      <h3>百香果綠茶</h3>
+      <p class="desc">新鮮百香果・現泡四季春・酸甜爽口</p>
+      <div class="price">NT$55</div>
+    </div>
+    <div class="menu-card">
+      <span class="menu-icon">🖤</span>
+      <h3>黑糖珍珠鮮奶</h3>
+      <p class="desc">手炒黑糖・現煮珍珠・每日鮮奶</p>
+      <div class="price">NT$80</div>
+    </div>
+    <div class="menu-card">
+      <div class="badge">季節限定</div>
+      <span class="menu-icon">🍑</span>
+      <h3>水蜜桃烏龍</h3>
+      <p class="desc">夏季限定・水蜜桃果汁・冷泡烏龍</p>
+      <div class="price">NT$70</div>
+    </div>
+    <div class="menu-card">
+      <span class="menu-icon">❄️</span>
+      <h3>仙草凍奶茶</h3>
+      <p class="desc">台灣仙草・濃縮奶茶・消暑聖品</p>
+      <div class="price">NT$65</div>
+    </div>
+    <div class="menu-card">
+      <span class="menu-icon">🍋</span>
+      <h3>多多綠茶</h3>
+      <p class="desc">養樂多・鮮榨檸檬・現泡綠茶</p>
+      <div class="price">NT$55</div>
+    </div>
+  </div>
+</section>
+
+<div class="features">
+  <div class="feature-item">
+    <span class="feature-icon">🍃</span>
+    <h4>嚴選茶葉</h4>
+    <p>與台灣茶農直接合作<br>確保每批茶葉品質</p>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">🥛</span>
+    <h4>天然食材</h4>
+    <p>不含人工香料色素<br>堅持天然製程</p>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">✋</span>
+    <h4>現點現做</h4>
+    <p>每杯飲品現場製作<br>保留最佳風味</p>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">⚙️</span>
+    <h4>客製化調整</h4>
+    <p>甜度冰量自由搭配<br>專屬您的一杯</p>
+  </div>
+</div>
+
+<section class="order-section">
+  <div class="order-info">
+    <span class="kana">CUSTOMIZE YOUR DRINK</span>
+    <h2>打造專屬<br>你的飲品</h2>
+    <p>每一杯飲品都能依照您的喜好調整，從甜度、冰量到配料，讓每一口都是最適合您的滋味。</p>
+    <ul class="order-steps">
+      <li><div class="step-num">1</div><span>選擇您喜愛的基底茶款或奶茶系列</span></li>
+      <li><div class="step-num">2</div><span>依個人喜好設定甜度與冰量</span></li>
+      <li><div class="step-num">3</div><span>加入喜愛的配料，如珍珠、椰果、布丁</span></li>
+      <li><div class="step-num">4</div><span>完成訂購，等待職人為您現做</span></li>
+    </ul>
+  </div>
+  <div class="customize-box">
+    <h3>客製化設定</h3>
+    <div class="opt-group">
+      <label>甜度</label>
+      <div class="opt-buttons">
+        <button class="opt-btn" onclick="toggleOpt(this,'sugar')">無糖</button>
+        <button class="opt-btn" onclick="toggleOpt(this,'sugar')">微糖</button>
+        <button class="opt-btn active" onclick="toggleOpt(this,'sugar')">半糖</button>
+        <button class="opt-btn" onclick="toggleOpt(this,'sugar')">全糖</button>
+      </div>
+    </div>
+    <div class="opt-group">
+      <label>冰量</label>
+      <div class="opt-buttons">
+        <button class="opt-btn" onclick="toggleOpt(this,'ice')">去冰</button>
+        <button class="opt-btn active" onclick="toggleOpt(this,'ice')">少冰</button>
+        <button class="opt-btn" onclick="toggleOpt(this,'ice')">正常冰</button>
+        <button class="opt-btn" onclick="toggleOpt(this,'ice')">多冰</button>
+      </div>
+    </div>
+    <div class="opt-group">
+      <label>配料（可複選）</label>
+      <div class="opt-buttons">
+        <button class="opt-btn active" onclick="this.classList.toggle('active')">珍珠 +10</button>
+        <button class="opt-btn" onclick="this.classList.toggle('active')">椰果 +10</button>
+        <button class="opt-btn" onclick="this.classList.toggle('active')">布丁 +15</button>
+        <button class="opt-btn" onclick="this.classList.toggle('active')">仙草凍 +15</button>
+      </div>
+    </div>
+    <button class="add-to-cart">加入購物車</button>
+  </div>
+</section>
+
+<footer>
+  <span class="logo-ft">五十嵐 50嵐</span>
+  全台超過 600 間門市・每日現做・職人堅持<br>
+  © 2025 50嵐 手搖飲料. All rights reserved.
+</footer>
+
+<script>
+function setTab(el) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function toggleOpt(el, group) {
+  el.closest('.opt-buttons').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
